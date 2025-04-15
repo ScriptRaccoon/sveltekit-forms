@@ -11,6 +11,10 @@
 	)
 </script>
 
+<svelte:head>
+	<title>Example 2</title>
+</svelte:head>
+
 <h1>Example 2</h1>
 
 <p class="subtitle">Save Form State in the URL</p>

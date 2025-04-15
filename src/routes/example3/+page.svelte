@@ -4,6 +4,10 @@
 	let { data, form } = $props()
 </script>
 
+<svelte:head>
+	<title>Example 3</title>
+</svelte:head>
+
 <h1>Example 3</h1>
 
 <p class="subtitle">Todo App with Form Actions</p>

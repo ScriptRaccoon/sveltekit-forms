@@ -2,6 +2,10 @@
 	let { data } = $props()
 </script>
 
+<svelte:head>
+	<title>Example 4</title>
+</svelte:head>
+
 <h1>Example 4</h1>
 
 <p class="subtitle">Search Feature with GET</p>

@@ -4,9 +4,13 @@
 	let { data } = $props()
 </script>
 
-<h1>Collatz Sequence</h1>
+<svelte:head>
+	<title>Example 5</title>
+</svelte:head>
 
-<p class="subtitle">Keep the Data in the URL</p>
+<h1>Example 5</h1>
+
+<p class="subtitle">Build the Collatz Sequence in the URL</p>
 
 {#if !data.values}
 	<form method="GET">

@@ -4,6 +4,10 @@
 	let showHelp = $derived(page.url.searchParams.has("show_help"))
 </script>
 
+<svelte:head>
+	<title>Example 1</title>
+</svelte:head>
+
 <h1>Example 1</h1>
 
 <p class="subtitle">Save Flags in the URL</p>
