@@ -14,3 +14,10 @@
 	You can turn off JavaScript in your browser and all the examples will still work. The
 	only difference is that the page will reload when you click a button or link.
 </p>
+
+<p>
+	The code is available on
+	<a href="https://github.com/ScriptRaccoon/sveltekit-forms" target="_blank">
+		GitHub</a
+	>.
+</p>
