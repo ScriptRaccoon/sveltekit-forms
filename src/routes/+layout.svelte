@@ -20,9 +20,6 @@
 		<li>
 			<a href="/example4">Example 4</a>
 		</li>
-		<li>
-			<a href="/example5">Example 5</a>
-		</li>
 	</ul>
 </nav>
 

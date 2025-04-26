@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from "$app/forms"
 	import type { Note as NoteType } from "./types"
 
 	type Props = {
@@ -14,10 +13,7 @@
 		<div class="date">
 			{note.createdAt.toLocaleString()}
 		</div>
-		<form method="POST" action="?/delete" use:enhance>
-			<input hidden type="text" value={note.id} name="id" />
-			<button class="delete" type="submit">Delete</button>
-		</form>
+		<button class="delete">Delete</button>
 	</div>
 
 	<div class="content">
