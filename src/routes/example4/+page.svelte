@@ -1,5 +1,8 @@
 <script lang="ts">
-	let { data } = $props()
+	import { enhance } from "$app/forms"
+	import Note from "./Note.svelte"
+
+	let { data, form } = $props()
 </script>
 
 <svelte:head>
@@ -8,50 +11,41 @@
 
 <h1>Example 4</h1>
 
-<p class="subtitle">Search Feature with GET</p>
+<p class="subtitle">Note App with Form Actions</p>
 
 <section>
-	<h2>Search for Countries</h2>
-	<form method="GET">
-		<input
-			type="search"
-			name="query"
-			aria-label="search query"
-			placeholder="Country name ..."
-			value={data.query}
-		/>
-		<button>Search</button>
+	<h2>Add a Note</h2>
+	<form method="POST" action="?/add" use:enhance>
+		<textarea
+			name="content"
+			rows="4"
+			aria-label="note content"
+			class:outlined={form?.error}
+		></textarea>
+		<button type="submit">Add Note</button>
 	</form>
-</section>
 
-<section>
-	<h2>Search Results ({data.countries.length})</h2>
+	{#if form?.message}
+		<p>{form.message}</p>
+	{/if}
 
-	{#if data.countries.length}
-		<ul>
-			{#each data.countries as country}
-				<li>
-					{country}
-				</li>
-			{/each}
-		</ul>
-	{:else}
-		<p>No countries found matching "{data.query}"</p>
+	{#if form?.error}
+		<p class="error">{form.error}</p>
 	{/if}
 </section>
 
+<section>
+	<h2>Notes</h2>
+
+	{#each data.notes as note (note.id)}
+		<Note {note} />
+	{:else}
+		<p>No notes yet</p>
+	{/each}
+</section>
+
 <style>
-	ul {
-		padding-left: 1.5rem;
-
-		li {
-			margin-block: 0.25rem;
-		}
-	}
-
-	input {
-		display: block;
-		width: 100%;
-		margin-bottom: 0.5rem;
+	textarea.outlined {
+		border-color: red;
 	}
 </style>

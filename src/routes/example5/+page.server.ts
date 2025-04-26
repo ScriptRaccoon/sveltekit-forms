@@ -1,12 +1,5 @@
 import { fail, redirect } from "@sveltejs/kit"
-import type { Actions, PageServerLoad, PageServerLoadEvent } from "./$types"
-
-export const load: PageServerLoad = async (event) => {
-	const values_str = event.url.searchParams.get("values") as string | null
-	const values = values_str ? values_str.split(",").map((v) => Number(v)) : null
-
-	return { values }
-}
+import type { Actions, PageServerLoad } from "./$types"
 
 function collatz(value: number): number {
 	if (value % 2 === 0) {
@@ -16,20 +9,23 @@ function collatz(value: number): number {
 	return value * 3 + 1
 }
 
+export const load: PageServerLoad = async (event) => {
+	const valuesString = event.url.searchParams.get("values")
+	const values = valuesString ? valuesString.split(",").map(Number) : null
+
+	return { values }
+}
+
 export const actions: Actions = {
 	default: (event) => {
-		const values_str = event.url.searchParams.get("values") as string | null
-		if (!values_str) return fail(400, { error: "Values cannot be empty" })
-		const last_value = values_str
-			.split(",")
-			.map((v) => Number(v))
-			.at(-1)
-		if (!last_value) return fail(400, { error: "Values cannot be empty" })
+		const valuesString = event.url.searchParams.get("values") as string | null
+		if (!valuesString) return fail(400, { error: "Values cannot be empty" })
+		const lastValue = valuesString.split(",").map(Number).at(-1)
+		if (!lastValue) return fail(400, { error: "Values cannot be empty" })
 
-		const next_value = collatz(last_value)
+		const nextValue = collatz(lastValue)
+		const newValuesString = `${valuesString},${nextValue}`
 
-		const new_values_str = `${values_str},${next_value}`
-
-		redirect(302, `/example5?values=${new_values_str}`)
+		redirect(302, `/example5?values=${newValuesString}`)
 	},
 }

@@ -1,14 +1,39 @@
+import { fail } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
-import all_countries from "./countries.json"
+import type { Note } from "./types"
 
-export const load: PageServerLoad = (event) => {
-	const query = event.url.searchParams.get("query") as string | null
+let notes: Note[] = [] // simulating a database
 
-	if (!query) return { query, countries: all_countries }
+export const load: PageServerLoad = () => {
+	return { notes }
+}
 
-	const countries = all_countries.filter((name) =>
-		name.toLowerCase().includes(query.toLowerCase()),
-	)
+export const actions = {
+	add: async (event) => {
+		const formData = await event.request.formData()
+		const content = formData.get("content") as string | null
 
-	return { query, countries }
+		if (!content) {
+			return fail(400, { error: "Note cannot be empty" })
+		}
+
+		const contents = content.split("\n").map((c) => c.trim())
+
+		const id = crypto.randomUUID()
+		const createdAt = new Date()
+
+		notes.push({ id, contents, createdAt })
+
+		return { message: "Note has been added" }
+	},
+
+	delete: async (event) => {
+		const formData = await event.request.formData()
+		const id = formData.get("id") as string | null
+		if (!id) return
+
+		notes = notes.filter((note) => note.id !== id)
+
+		return { message: "Note has been deleted" }
+	},
 }
