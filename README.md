@@ -11,3 +11,5 @@ This approach has many advantages:
 -   The code becomes simpler.
 -   You use the platform (HTTP + HTML).
 -   Better SEO
+
+Related repository: <https://github.com/ScriptRaccoon/sveltekit-crud-operations>
